@@ -1,0 +1,42 @@
+#coding:utf-8
+
+from api.lib.qi_niu import *
+from meet.models import *
+import datetime
+
+def ImageSave(self):
+        #ID 为空，新增图片
+    if self.id is None:
+        super(ImageLibrary, self).save() #先保存一遍
+        QNUploadImage(self)
+    #未保存前，获取原来的地址
+    m = ImageLibrary.objects.get(id = self.id)
+    _old_path = m.local_path.path if m.local_path != "" else ""
+    print "2:",_old_path
+    super(ImageLibrary, self).save()
+
+    #保存后，获取新地址
+    _new_path = self.local_path.path if self.local_path !="" else ""
+    print "3:",_new_path
+    #地址没变化，直接保存
+    if  _old_path == _new_path:
+        return
+    else:
+        QNUploadImage(self)
+
+    #更新图片
+def QNUploadImage(self):
+        #获取本地地址
+        _local_path = self.local_path.path
+        _now = datetime.datetime.now()
+        _name = "hx_" + str(self.id) + "_" + _now.strftime("%Y_%m_%d_%H_%M_%S") # 拼接名字
+        _style = _local_path.split(".")[-1] # 拼接类别
+        _file_name = _name + "." + _style # 拼接图片名字
+        self.url =  "http://qiniu.308308.com/" + _file_name #存储的链接
+        self.name = _file_name
+        # #上传七牛
+        _qiniu = QiNiu()
+        print self.local_path.url
+        print self.local_path.name
+        _qiniu.put( "" , _file_name , _local_path )
+        super(ImageLibrary, self).save()

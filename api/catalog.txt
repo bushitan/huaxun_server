@@ -1,0 +1,78 @@
+
+# 1快讯 Article ,2供求 Match ,3会议 Meet，4商圈 Roster ,5我 My
+# 7支付 Pay , 8历史记录 History
+全局arg:session
+App: tag_list
+
+1.1 ArticleIndex 快讯初始化
+arg:
+return: swiper_list ,banner_list ,tag_list
+
+1.2 ArticleGetListByTag 点击标签，获取文章列表
+arg: tag_id ,start_index ,end_index
+return: article_list
+
+1.3 ArticleGetById 阅读文章
+arg: article_id
+return: article / fail
+
+
+1.4 ArticleGetSearch 按时间、tag、标题，搜索文章
+arg:date_range ,tag_id ,title ,start_index ,end_index
+return:article_list
+
+
+2.1 MatchGetListByTag 点击标签，查询供求信息
+arg: tag_id
+return: match_list
+
+2.2 MatchSetIssue 用户发布供求信息
+arg: is_buy ,title ,content ,phone
+return: msg
+
+2.3 MatchGetListBySelf 查自己的信息
+
+2.4 MatchDeleteBySelf  删除自己的信息
+
+
+
+
+4.1 RosterGetListByTag 点击标签，查询供求信息
+arg: tag_id
+return: roster_list
+
+4.2 RosterGetByUser 查看用户相信信息
+arg: user_id
+return: user,company
+
+
+5.1 MyLogin 用户登录 ,获取新的session和目录表
+arg:js_code
+return:session tag_list
+
+5.2 MySetWXInfo 设置用户头像等信息
+arg: logo_url , address
+return: msg
+
+5.3 MySetRosterInfo 用户自己填花名册信息
+arg: content
+return:msg
+
+5.4 MyGetSelfInfo 用户获取自己数据
+arg:
+return:user
+
+7.1 PayPage 创建支付页面
+arg: tag_id ,role_id
+return: tag_list,role_list
+
+7.2 PayGetDiscountByTagRole 根据选择类型，获取优惠券
+arg:tag_id ,role_id , style(付款类型)
+return: order_dict,fee(付款金额)
+
+7.3 PayCallbackByWx
+return: msg(微信支付结果，付款成功)
+
+7.4 PayCallbackByZero
+arg:fee , order_id
+return: msg(优惠券后到0元，付款成功)
