@@ -1,9 +1,10 @@
 # Python:
 *.pyc
 *.json
-/static/
-/media/
+/static/*
+!/static/readme.txt
+/media/*
+!/media/readme.txt
 /.idea/
-/*/migrations/
 all.log
 db.sqlite3

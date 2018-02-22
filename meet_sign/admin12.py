@@ -25,9 +25,9 @@ from meet_sign.models import *
 ##admin.site.register(Meet,MeetAdmin)
 
 ##5
-class CostAdmin(admin.ModelAdmin):
-    list_display = ('id','name_admin','name',)
-admin.site.register(Cost,CostAdmin)
+class BillAdmin(admin.ModelAdmin):
+    list_display = ('id','name_admin','name','meet',)
+admin.site.register(Bill,BillAdmin)
 
 ##6
 class DiscountTemplateAdmin(admin.ModelAdmin):
@@ -37,13 +37,8 @@ admin.site.register(DiscountTemplate,DiscountTemplateAdmin)
 
 ##6.2
 class AttendeeAdmin(admin.ModelAdmin):
-    list_display = ('id','name',)
+    list_display = ('id','name','order',)
 admin.site.register(Attendee,AttendeeAdmin)
-
-##6.2
-class SignAdmin(admin.ModelAdmin):
-    list_display = ('id',)
-admin.site.register(Sign,SignAdmin)
 
 
 ##7
@@ -53,7 +48,7 @@ admin.site.register(Discount,DiscountAdmin)
 
 ##8
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id','sign','is_pay',)
+    list_display = ('id','user','bill','is_pay',)
 admin.site.register(Order,OrderAdmin)
 
 ##9
