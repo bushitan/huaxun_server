@@ -17,6 +17,8 @@ action = Action()
 # from meet.meet_query.m_article import *
 # from api.hx.hx_tag import *
 # from api.hx.hx_role import *
+from meet.action.login import *
+from meet.action.index import *
 
 class Index( ListView):
 	pass
@@ -25,21 +27,25 @@ class Index( ListView):
 # 用户是否已报名，
 class Login( ListView):
 	def get(self, request, *args, **kwargs):
-		try:
+		# try:
 			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_js_code = request.GET.get('js_code',"")
-			_session = request.GET.get('session',"")
-			_session = request.GET.get('union_id',"")
+			_s_js_code = request.GET.get('js_code',"")
+			_s_session = request.GET.get('session',"")
+			# _union_id = request.GET.get('union_id',"")
 
-			_hx_user = HX_User()
-			_user = _hx_user.UserLogin(_js_code ,_session)
+			# _hx_user = HX_User()
+			# _user = _hx_user.UserLogin(_js_code ,_session)
 
+			_m = MeetLogin()
+			_index = MeetIndex()
+			print _index
 			_dict = {
-                '12':'2131'
+                'dict_user':_m.CheckSession(_s_js_code ,_s_session),
+				'dict_current_meet':_index.GetIndex()
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+		# except Exception,e :
+		# 	return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
 
 #2 获取日程列表
 class MeetIndex( ListView):
