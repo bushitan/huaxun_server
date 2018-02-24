@@ -1,6 +1,6 @@
 #coding:utf-8
 from django.db import models
-from order.models import *
+# from order.models import *
 
 class string_with_title(str):
     """ 用来修改admin中显示的app名称,因为admin app 名称是用 str.title()显示的,

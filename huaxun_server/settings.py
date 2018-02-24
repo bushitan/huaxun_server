@@ -87,7 +87,36 @@ SUIT_CONFIG = {
         'auth': 'icon-lock',
     },
      'MENU_EXCLUDE': ('auth.group', 'auth'),#  menu不显示的栏目图标
-
+    # 'MENU': (
+    #     # sites是默认原先的app和models
+    #     # 'sites',
+    #     '-',
+    #     {'app': 'api', 'label': u'小程序', 'icon': 'icon-lock',
+    #     #   'models': (
+    #     #     'meet.ImageLibrary',
+    #     #     'meet.ArticleStyle',
+    #     #     'meet_sign.Attendee',
+		# #
+    #     # )
+    #      },
+    #     # '-',
+    #     # {'app': 'duser', 'label': u'平台用户', 'icon': 'icon-user'},
+    #     # '-',
+    #     # {'app': 'dtheme', 'label': u'主题管理', 'icon': 'icon-tags'},
+    #     # '-',
+    #     # {'app': 'dpost', 'label': u'文章管理', 'icon': 'icon-edit'},
+    #     # '-',
+    #     # # 如果使用http这种绝对路径的话，菜单不会展开，且不会标记为active状态
+    #     # {'url': '/admin/theme/mysql', 'label': u'第三数据', 'icon': 'icon-lock'},
+    #     '-',
+    #     {'label': u'统计数据231432', 'icon': 'icon-tags',
+    #      'models': (
+    #         'meet.ImageLibrary',
+    #         'meet.ArticleStyle',
+    #         'meet_sign.Attendee',
+	#
+    #     )}
+    # ),
     # misc
     'LIST_PER_PAGE': 15
 }
@@ -167,63 +196,63 @@ FILE_CHARSET = 'gb18030'
 DEFAULT_CHARSET = 'utf-8'
 
 # log配置
-LOG_FILE = "./all.log"
-
-LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': True,
-
-        'filters': {
-            'require_debug_false': {
-                '()': 'django.utils.log.RequireDebugFalse'
-                }
-            },
-        'formatters': {
-            'simple': {
-                'format': '[%(levelname)s] %(module)s : %(message)s'
-                },
-            'verbose': {
-                'format':
-                    '[%(asctime)s] [%(levelname)s] %(module)s : %(message)s'
-                }
-            },
-
-        'handlers': {
-            'null': {
-                'level': 'DEBUG',
-                'class': 'django.utils.log.NullHandler',
-                },
-            'console': {
-                'level': 'INFO',
-                'class': 'logging.StreamHandler',
-                'formatter': 'verbose'
-                },
-            'file': {
-                'level': 'INFO',
-                'class': 'logging.FileHandler',
-                'formatter': 'verbose',
-                'filename': LOG_FILE,
-                'mode': 'a',
-                },
-            'mail_admins': {
-                'level': 'ERROR',
-                'class': 'django.utils.log.AdminEmailHandler',
-                'filters': ['require_debug_false']
-                }
-            },
-        'loggers': {
-            'django': {
-                'handlers': ['file', 'console'],
-                'level': 'DEBUG',
-                'propagate': True,
-            },
-             'django.request': {
-                'handlers': ['mail_admins', 'console'],
-                'level': 'ERROR',
-                'propagate': True,
-            },
-        }
-}
+# LOG_FILE = "./all.log"
+#
+# LOGGING = {
+#         'version': 1,
+#         'disable_existing_loggers': True,
+#
+#         'filters': {
+#             'require_debug_false': {
+#                 '()': 'django.utils.log.RequireDebugFalse'
+#                 }
+#             },
+#         'formatters': {
+#             'simple': {
+#                 'format': '[%(levelname)s] %(module)s : %(message)s'
+#                 },
+#             'verbose': {
+#                 'format':
+#                     '[%(asctime)s] [%(levelname)s] %(module)s : %(message)s'
+#                 }
+#             },
+#
+#         'handlers': {
+#             'null': {
+#                 'level': 'DEBUG',
+#                 'class': 'django.utils.log.NullHandler',
+#                 },
+#             'console': {
+#                 'level': 'INFO',
+#                 'class': 'logging.StreamHandler',
+#                 'formatter': 'verbose'
+#                 },
+#             'file': {
+#                 'level': 'INFO',
+#                 'class': 'logging.FileHandler',
+#                 'formatter': 'verbose',
+#                 'filename': LOG_FILE,
+#                 'mode': 'a',
+#                 },
+#             'mail_admins': {
+#                 'level': 'ERROR',
+#                 'class': 'django.utils.log.AdminEmailHandler',
+#                 'filters': ['require_debug_false']
+#                 }
+#             },
+#         'loggers': {
+#             'django': {
+#                 'handlers': ['file', 'console'],
+#                 'level': 'DEBUG',
+#                 'propagate': True,
+#             },
+#              'django.request': {
+#                 'handlers': ['mail_admins', 'console'],
+#                 'level': 'ERROR',
+#                 'propagate': True,
+#             },
+#         }
+# }
 
 #华讯
 APP_ID = "wx51930c31391cc5cc"

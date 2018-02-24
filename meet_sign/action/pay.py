@@ -1,18 +1,127 @@
 #coding:utf-8
-from meet_sign.query.cost import *
+from meet_sign.query.attendee import *
+from meet_sign.query.order import *
+from meet_sign.query.sign import *
+from meet.lib.wx_pay import *
 import json
 import urllib2
-class ActionCost():
-	def __init__(self):
-		self.query_cost = QueryCost()
-	def GetListByCurrentMeet(self,i_meet_id):
-		return self.query_cost.Filter(meet__id = i_meet_id)
+import random
+from django.db import transaction #事务
 
+APP_ID = "wx51930c31391cc5cc"
+APP_SECRET = "0004ddafadf09d541dadee17a533b60f"
+MACH_ID = "1488713872"
+MACH_KEY = "283fc3d9d4b8ba3b58601145466d4417"
+PAY_CALLBACK_URL = "https://xcx.308308.com/huaxun_2/api/pay/callback/wx/"
+
+class ActionPay():
+	def __init__(self):
+		self.query_attendee = QueryAttendee()
+		self.query_order = QueryOrder()
+		self.query_sign = QuerySign()
+
+	def WXPaySuccess(self,xml_request):
+		xh = XMLHandler()
+		xml.sax.parseString( xml_request, xh)
+		_xml_dict = xh.getDict()
+		_out_trade_no = _xml_dict["out_trade_no"]
+		_total_fee = _xml_dict["total_fee"]
+		_xml_resualt = '''
+			<xml>
+			  <return_code><![CDATA[%s]]></return_code>
+			  <return_msg><![CDATA[%s]]></return_msg>
+			</xml>
+		'''
+		with transaction.atomic():
+			_q_order = self.query_order.FilterQuery( wx_out_trade_no = _out_trade_no )
+			if len(_q_order) == 0:
+				return xml_request%("FAIL",u"订单不存在")
+			else:
+				self.query_order.Update(_q_order, is_pay = YES)
+				_sign_is = _q_order[0].sign_id
+				
+				_q_sign = self.query_sign.FilterQuery( id =_sign_is )
+				self.query_sign.Update(_q_sign,is_alive = YES)
+
+				return xml_request%("SUCCESS",u"支付成功")
+		#返回结果
+
+	# 创建微信支付的签名
+	# 1、将  与会者 和 花费项目 绑定为sign中，alive未激活
+	# 2、创建未支付的order订单
+	# 3、生成微信支付sign
+	def WXPaySign(self,s_session,s_cost_id):
+		with transaction.atomic():
+			#1 添加报名表
+			_d_sign =  self._CreateSignNoAlive(s_session,s_cost_id)
+			#2 添加订单
+			_d_order = self._CreateOrderNoPay(_d_sign)
+			#3 生成微信支付签名
+			_total_fee = str( int( _d_order['pay_price'] *100) )
+
+			_wx_pay = WXPay(
+				APP_ID,
+				APP_SECRET,
+				MACH_ID,
+				MACH_KEY,
+				_d_sign['attendee_wx_open_id'] ,
+				_d_order['wx_out_trade_no'] ,
+				_total_fee ,
+				PAY_CALLBACK_URL
+			)
+			_dict  =  _wx_pay.get_request_payment()
+			return _dict
+
+	# 创建未支付的订单
+	def _CreateOrderNoPay(self,d_sign):
+		if self.query_order.IsExists(
+			sign_id = d_sign["sign_id"],
+			is_pay = NO,
+			is_alive = NO,
+		) is True:
+			return self.query_order.Get(
+				sign_id = d_sign["sign_id"],
+				is_pay = NO,
+				is_alive = NO,
+			)
+		else:
+			_trade = str(
+				datetime.datetime.now().strftime("%Y%m%d%H%M%S")) \
+				+ str(d_sign["sign_id"]) \
+				+ str(int(random.random() * 1000)
+		  	)
+			return self.query_order.Add(
+				sign_id = d_sign["sign_id"],
+				is_pay = NO,
+				is_alive = NO,
+				wx_out_trade_no = _trade,
+				origin_price = d_sign["cost_unit_price"],
+				pay_price = d_sign["cost_unit_price"],
+		  	)
+	# 获取  与会者 和 花费项目 绑定为sign中，alive未激活
+	def _CreateSignNoAlive(self,s_session,cost_id):
+		_att = self.query_attendee.GetQuery(session = s_session)
+		if self.query_sign.IsExists(
+			attendee_id = _att.id,
+			cost_id = cost_id,
+			is_alive = NO,
+		) is True:
+			return self.query_sign.Get(
+				attendee_id = _att.id,
+				cost_id = cost_id,
+				is_alive = NO,
+			)
+		else:
+			return self.query_sign.Add(
+				attendee_id = _att.id,
+				cost_id = cost_id,
+				is_alive = NO,
+		  	)
 
 
 if __name__ == "__main__":
 	import os,django
 	django.setup()
-	b = ActionCost()
-	print b.GetListByCurrentMeet('1')
+	b = ActionPay()
+	print b.WXPaySign('112',2)
 	# b.SetInfo('112')

@@ -1,25 +1,21 @@
 #coding:utf-8
-from meet_sign.query.base import *
+from meet.lib.query_base import *
 from meet_sign.models import *
-class QueryAttendee(Base):
+class QueryCost(QueryBase):
+	def __init__(self):
+		super(QueryCost,self).__init__(Cost)
 	#用于封面展示的数据
 	def _PackDict(self,query_get):
 		return {
-			"session":query_get.session,
-			"uuid":query_get.uuid,
 			"name":query_get.name,
-			"male": query_get.male,
-			"company":query_get.company,
-			"phone":query_get.phone,
-			"position":query_get.position,
-			"remark":query_get.remark,
+			"des":query_get.des,
+			# "meet_name":query_get.meet.name if query_get.meet is not None else "",
+			"unit_price": query_get.unit_price,
 		}
-	def Set(self,*args,**kwargs):
-		_dict = Attendee(*args,**kwargs)
-		_dict.save()
-		return self._PackDict(_dict)
-	def GetDict(self, *args, **kwargs):
-			_query = Attendee.objects.get(*args,**kwargs)
-			return self._PackDict(_query)
-	def IsExists(self, *args, **kwargs):
-		return Attendee.objects.filter(*args, **kwargs).exists()
+
+if __name__ == "__main__":
+	import os,django
+	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "huaxun_server.settings")
+	django.setup()
+	q = QueryCost()
+	print q.Filter(meet__status = MEET_START)

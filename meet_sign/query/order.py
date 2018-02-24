@@ -1,21 +1,25 @@
 #coding:utf-8
 from meet.lib.query_base import *
 from meet_sign.models import *
-class QueryCost(QueryBase):
+class QueryOrder(QueryBase):
 	def __init__(self):
-		super(QueryCost,self).__init__(Cost)
+		super(QueryOrder,self).__init__(Order)
 	#用于封面展示的数据
 	def _PackDict(self,query_get):
 		return {
-			"name":query_get.name,
-			"des":query_get.des,
-			# "meet_name":query_get.meet.name if query_get.meet is not None else "",
-			"unit_price": query_get.unit_price,
+			"order_id":query_get.id,
+			"is_alive":query_get.is_alive,
+			"is_pay":query_get.is_pay,
+			"wx_out_trade_no":query_get.wx_out_trade_no,
+			"origin_price":query_get.origin_price,
+			"pay_price":query_get.pay_price,
+			"remark":query_get.remark,
+			"create_time": query_get.create_time.strftime("%Y-%m-%d"),
 		}
 
 if __name__ == "__main__":
 	import os,django
 	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "huaxun_server.settings")
 	django.setup()
-	q = QueryCost()
+	q = QueryOrder()
 	print q.Filter(meet__status = MEET_START)

@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^' + SETTINGS.HOST_URL+'/admin/', include(admin.site.urls)),
     url(r'^' + SETTINGS.HOST_URL+'/api/', include('api.urls',)),
     url(r'^' + SETTINGS.HOST_URL+'/meet/', include('meet.urls',)),
+    url(r'^' + SETTINGS.HOST_URL+'/meet/', include('meet_sign.urls',)),
     url(r'^' + SETTINGS.HOST_URL+'/', include('roster.urls',)),
     url(r'^' + SETTINGS.HOST_URL+'/', include('match.urls',)),
 ]

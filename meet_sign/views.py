@@ -2,201 +2,80 @@
 
 from django.views.generic import ListView
 
-
 from api.lib.message import *
-from api.models.user import *
-from api.hx.hx_user import *
-# from api.hx.hx_tag import *
-# from api.hx.hx_role import *
+from meet_sign.action.attendee import *
+from meet_sign.action.cost import *
+from meet_sign.action.pay import *
 
-class Index( ListView):
-	pass
-
-#1 用户登录，本次会议的地图、封面、赞助商
-# 用户是否已报名，
-class Login( ListView):
+class AttendeeGet( ListView):
 	def get(self, request, *args, **kwargs):
 		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_js_code = request.GET.get('js_code',"")
-			_session = request.GET.get('session',"")
-			_session = request.GET.get('union_id',"")
-
-			_hx_user = HX_User()
-			_user = _hx_user.UserLogin(_js_code ,_session)
-
+			_s_session = request.GET.get('meet_session',"")
+			_att = ActionAttendee()
+			_d_attendee = _att.GetInfo(_s_session)
 			_dict = {
-                '12':'2131'
+				'dict_attendee':_d_attendee
+			}
+			return MESSAGE_RESPONSE_SUCCESS(_dict)
+		except Exception,e :
+			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+class AttendeeSet( ListView):
+	def get(self, request, *args, **kwargs):
+		try:
+			_s_session = request.GET.get('meet_session',"")
+			_s_name = request.GET.get('name',"")
+			_att = ActionAttendee()
+			_d_attendee = _att.SetInfo(
+				_s_session,
+				name = _s_name,
+			)
+			_dict = {
+                'dict_attendee':_d_attendee
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)
 		except Exception,e :
 			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
 
-#2 获取日程列表
-class AgendaGetListByMeetID( ListView):
+class CostGetList( ListView):
 	def get(self, request, *args, **kwargs):
 		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
+			_s_meet_id = request.GET.get('meet_id',"")
+			_cost = ActionCost( )
+			_l_cost = _cost.GetListByCurrentMeet( int(_s_meet_id) )
 			_dict = {
-                '12':'2131'
+                'list_cost':_l_cost
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)
 		except Exception,e :
 			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
 
-
-#3 获取嘉宾列表
-class GuestGetListByMeetID( ListView):
+# 生成支付签名，
+class PayOrder( ListView):
 	def get(self, request, *args, **kwargs):
 		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
+			_s_session = request.GET.get('session',"")
+			_s_cost_id = request.GET.get('cost_id',"")
+			_s_discount_id = request.GET.get('discount_id',"")
+			_action_pay = ActionPay()
+			_wx_sign = _action_pay.WXPaySign(_s_session ,_s_cost_id)
 			_dict = {
-                '12':'2131'
+				"wx_sign":_wx_sign,
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)
 		except Exception,e :
 			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
 
-#4 嘉宾详情
-class GuestGetByGuestID( ListView):
-	def get(self, request, *args, **kwargs):
+#3 微信支付回调
+class PayCallback( ListView):
+	def post(self, request, *args, **kwargs):
 		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
+			_xml_request =  request.body
+			_action_pay = ActionPay()
+			_xml = _action_pay.WXPaySuccess(_xml_request)
+			return HttpResponse( _xml,content_type="application/xml")
 		except Exception,e :
+			print e
 			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-#5 获取新闻列表
-class NewsGetListByMeetID( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-
-#6 获取文章
-class ArticleGetByArticleID( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-
-#7 景点列表
-class SpotGetListByMeetID( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-#8 景点详情
-class SpotGetBySpotID( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-#9 会议的设置级别
-class BillGetListByMeetID( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-#10 用户已经支付的订单
-class OrderGetListByUserID( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-#11 用户报名支付
-# 订购数量，订购bill类别
-class OrderPay( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-#12 用户支付结果
-class OrderPayCallback( ListView):
-	def get(self, request, *args, **kwargs):
-		try:
-			# _user = User.objects.get( session =  request.GET.get('session',""))
-			_meet_id = request.GET.get('meet_id',"")
-			_dict = {
-                '12':'2131'
-			}
-			return MESSAGE_RESPONSE_SUCCESS(_dict)
-		except Exception,e :
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
