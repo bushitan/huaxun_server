@@ -13,6 +13,7 @@ IS_PAYMENT = {
 IS_ALIVE = {
     YES:u"激活",
     NO:u"失效",
+    3:u"无意义",
 }
 # 会与者
 class Attendee(models.Model):
@@ -21,7 +22,9 @@ class Attendee(models.Model):
     session = models.CharField (max_length=128, verbose_name=u'Django的session',null=True,blank=True)
     uuid =  models.CharField(max_length=32, verbose_name=u'uuid标识',null=True,blank=True)
 
-    name =  models.CharField(max_length=100, verbose_name=u'姓名1',default="",null=True,blank=True)
+    name =  models.CharField(max_length=100, verbose_name=u'姓名',default="",null=True,blank=True)
+    nick_name =  models.CharField(max_length=100, verbose_name=u'微信昵称',default="",null=True,blank=True)
+    logo =  models.CharField(max_length=500, verbose_name=u'头像',default="",null=True,blank=True)
     male =  models.BooleanField( verbose_name=u'性别',default=YES,choices=IS_MALE.items())
     company =  models.CharField(max_length=100, verbose_name=u'企业名称',default="",null=True,blank=True)
     phone = models.CharField(max_length=40, verbose_name=u'电话',default="",null=True,blank=True)

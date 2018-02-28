@@ -37,3 +37,39 @@ ORDER_PAY = {
     NO:u"未支付",
     YES:u"已支付",
 }
+
+
+ARTICLE_STYLE_NORMAL = 1
+ARTICLE_STYLE_TEXT = 2
+ARTICLE_STYLE_AUDIO = 3
+ARTICLE_STYLE_VIDEO = 4
+ARTICLE_STYLE = {
+    ARTICLE_STYLE_NORMAL :"普通",
+    ARTICLE_STYLE_TEXT :"纯文字",
+    ARTICLE_STYLE_AUDIO :"音频",
+    ARTICLE_STYLE_VIDEO :"视频",
+}
+
+MEET_APP_ID = "wx3efaa3a88f42df6b"
+MEET_APP_SECRET = "2b4f979499f140c061f123a110accfce"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

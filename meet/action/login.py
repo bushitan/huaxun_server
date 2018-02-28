@@ -1,9 +1,10 @@
 #coding:utf-8
 from meet_sign.query.attendee import *
+from meet.lib.util import *
 import json
 import urllib2
-app_id = "2432"
-app_secret = "2432"
+app_id = MEET_APP_ID
+app_secret = MEET_APP_SECRET
 class ActionLogin():
 	def __init__(self):
 		self.query_attendee = QueryAttendee()

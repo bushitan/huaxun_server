@@ -9,9 +9,11 @@ class QueryArticleLibrary(QueryBase):
 	def _PackDict(self,query_get):
 		return {
             "article_id": query_get.id,
+            "style":query_get.style,
             "click_rate":query_get.click_rate,
             "title":query_get.title,
             "subtitle":query_get.subtitle,
+            "content":query_get.content,
             "summary":query_get.summary,
             "source":query_get.source,
 		}

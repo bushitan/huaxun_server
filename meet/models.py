@@ -26,23 +26,11 @@ class ImageLibrary(models.Model):
     def save(self):
         ImageSave(self,ImageLibrary)
 
-#2 文章延时
-class ArticleStyle(models.Model):
-##    lite = models.ForeignKey(ImageLibrary, verbose_name=u'所属小程序',null=True,blank=True)
-    name =  models.CharField(max_length=32, verbose_name=u'前台页面名称',default="",null=True,blank=True)
-    name_admin =  models.CharField(max_length=32, verbose_name=u'admin页面名称',default="",null=True,blank=True)
-    mark =  models.IntegerField(verbose_name=u'页面对应的标记',default=0) #每个页面对应的标记
-    fieldsets = models.TextField(verbose_name=u'admin页面配置',default="",null=True,blank=True)
-    create_time = models.DateTimeField(u'创建时间', default = timezone.now)
-    # 点击链接的文章
-    class Meta:
-        verbose_name_plural = verbose_name = u'6.3 文章样式'
-        ordering = ['-create_time']
-    def __unicode__(self):
-        return '%s' % (self.name_admin)
 #8 文章库
 class ArticleLibrary(models.Model):
-    style =  models.ForeignKey(ArticleStyle,verbose_name=u'页面类别',null=True,blank=True) #所属会议
+
+    style = models.IntegerField(u'文章类别',default=ARTICLE_STYLE_TEXT,choices=ARTICLE_STYLE.items(),)
+    # style =  models.ForeignKey(ArticleStyle,verbose_name=u'页面类别',null=True,blank=True) #所属会议
     is_show = models.IntegerField(u'是否显示文章',default=YES,choices=IS_SHOW.items(),)
     click_rate = models.IntegerField(u'点击率',default=8965)
     is_top = models.IntegerField(u'文章置顶',default=NO,choices=IS_TOP.items(),)

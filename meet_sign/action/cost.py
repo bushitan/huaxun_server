@@ -5,8 +5,8 @@ import urllib2
 class ActionCost():
 	def __init__(self):
 		self.query_cost = QueryCost()
-	def GetListByCurrentMeet(self,i_meet_id):
-		return self.query_cost.Filter(meet__id = i_meet_id)
+	def GetListByCurrentMeet(self,meet_id):
+		return self.query_cost.Filter(meet__id = meet_id)
 
 
 

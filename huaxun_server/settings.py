@@ -60,7 +60,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'api.lib.middleware.SessionMiddleware'
+    'api.lib.middleware.SessionMiddleware',
+    'meet_sign.lib.middleware.SessionMiddleware',
 )
 
 ROOT_URLCONF = 'huaxun_server.urls'

@@ -7,10 +7,12 @@ class QueryCost(QueryBase):
 	#用于封面展示的数据
 	def _PackDict(self,query_get):
 		return {
+			"cost_id":query_get.id,
 			"name":query_get.name,
 			"des":query_get.des,
 			# "meet_name":query_get.meet.name if query_get.meet is not None else "",
 			"unit_price": query_get.unit_price,
+			"price":u"￥" + '%.2f' % query_get.unit_price
 		}
 
 if __name__ == "__main__":

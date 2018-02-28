@@ -42,7 +42,8 @@ admin.site.register(Attendee,AttendeeAdmin)
 
 ##6.2
 class SignAdmin(admin.ModelAdmin):
-    list_display = ('id',)
+    # list_display = ('id',)
+    pass
 admin.site.register(Sign,SignAdmin)
 
 

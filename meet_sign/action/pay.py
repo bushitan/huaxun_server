@@ -20,6 +20,20 @@ class ActionPay():
 		self.query_order = QueryOrder()
 		self.query_sign = QuerySign()
 
+	def CheckIsPay(self,s_sesson,meet_id):
+		# self.query_attendee.Get(session=s_sesson)
+		return self.query_sign.IsExists(
+			attendee__session = s_sesson,
+			cost__meet_id = meet_id,
+			is_alive = YES,
+		)
+	def GetInfo(self,s_sesson,meet_id):
+		# self.query_attendee.Get(session=s_sesson)
+		return self.query_sign.Filter(
+			attendee__session = s_sesson,
+			cost__meet_id = meet_id,
+			is_alive = YES,
+		)
 	def WXPaySuccess(self,xml_request):
 		xh = XMLHandler()
 		xml.sax.parseString( xml_request, xh)

@@ -3,9 +3,10 @@ from django.contrib import admin
 
 # Register your models here.
 from meet.models import *
-from django.contrib.contenttypes.admin import GenericTabularInline
-from meet.lib.meet_fieldsets import *
-_meetAmin = MeetAdmin()
+# from django.contrib.contenttypes.admin import GenericTabularInline
+# from meet.lib.meet_fieldsets import *
+# _meetAmin = MeetAdmin()
+from meet.lib.admin_fieldsets import ArticleFieldsets
 print 
 
 class ImageLibraryAdmin(admin.ModelAdmin):
@@ -24,23 +25,31 @@ class ImageLibraryAdmin(admin.ModelAdmin):
     readonly_fields = ['cover_pre',]
 admin.site.register(ImageLibrary,ImageLibraryAdmin)
 
+# from django import forms
+# class ArticleForm(forms.ModelForm):
+
 
 class ArticleLibraryAdmin(admin.ModelAdmin):
     list_display = ('id','style','title','subtitle','issue_time','is_show',)
-    fieldsets = _meetAmin.GetArticleFieldsets()
-    # inlines = [CoverInline] #插入花名册的信息
+    # fieldsets = _meetAmin.GetArticleFieldsets()
+    # inlines = [CoverInline] #
     suit_form_tabs = (('content', '内容'), ('cover', u'封面')) #tab分栏
     # radio_fields = {"style": admin.HORIZONTAL}
+    def get_form(self, request, obj=None, *args, **kwargs):
+        # print 111111111
+        # print obj.style if obj is not None else 222
+        # if request.user.is_superuser:
+        #     print 347835784
+
+        if obj is not None:
+            self.fieldsets = ArticleFieldsets(obj.style )
+
+        return super(ArticleLibraryAdmin, self).get_form(request, obj, **kwargs)
     class Media:
         js = ('/huaxun/static/tinymce/tinymce.min.js',
               '/huaxun/static/tinymce/textareas.js')
 admin.site.register(ArticleLibrary,ArticleLibraryAdmin)
 
-##3
-class ArticleStyleAdmin(admin.ModelAdmin):
-    list_display = ('name_admin','mark',)
-    list_editable = ('mark',)
-admin.site.register(ArticleStyle,ArticleStyleAdmin)
 
 class MeetAdmin(admin.ModelAdmin):
     # fieldsets = (
@@ -87,7 +96,7 @@ admin.site.register(News,NewsAdmin)
 
 
 class SpotAdmin(admin.ModelAdmin):
-    fields = ['cover_pre','cover_image','title','meet',]
+    # fields = ['cover_pre','cover_image','title','meet',]
     list_display = ('id','cover_pre','title','meet',)
     raw_id_fields = ('cover_image',)
     def cover_pre(self, obj):

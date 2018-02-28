@@ -37,6 +37,9 @@ class Login( ListView):
 			_s_js_code = request.GET.get('js_code',"")
 			_s_session = request.GET.get('meet_session',"")
 			# _union_id = request.GET.get('union_id',"")
+			print "js_code:",_s_js_code
+			print "session:",_s_session
+			_s_session = '112'
 			_dict = {
                 'dict_user':self.action_login.CheckSession(_s_js_code ,_s_session),
 				'dict_current_meet':self.action_meet.GetCurrent()

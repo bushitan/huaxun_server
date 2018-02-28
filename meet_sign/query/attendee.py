@@ -10,7 +10,9 @@ class QueryAttendee(QueryBase):
 		return {
 			"session":query_get.session,
 			"uuid":query_get.uuid,
+			"logo":query_get.logo,
 			"name":query_get.name,
+			"nick_name":query_get.nick_name,
 			"male": query_get.male,
 			"company":query_get.company,
 			"phone":query_get.phone,

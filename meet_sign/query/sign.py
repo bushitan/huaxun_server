@@ -6,11 +6,19 @@ class QuerySign(QueryBase):
 		super(QuerySign,self).__init__(Sign)
 	#用于封面展示的数据
 	def _PackDict(self,query_get):
+		meet_name = ""
+		if query_get.cost is not None:
+			if query_get.cost.meet is not None:
+				meet_name = query_get.cost.meet.name
+
+
 		return {
 			"sign_id":query_get.id,
 			"attendee_id":query_get.attendee_id,
 			"attendee_wx_open_id":query_get.attendee.wx_open_id if query_get.attendee is not None else '' ,
-			"cost_id":query_get.cost.name,
+			"meet_name":meet_name,
+			"cost_id":query_get.cost_id,
+			"cost_name":query_get.cost.name,
 			"cost_unit_price":query_get.cost.unit_price if query_get.cost is not None else 0,
 			"is_alive":query_get.is_alive,
 		}
