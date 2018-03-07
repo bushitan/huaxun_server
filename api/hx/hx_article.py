@@ -5,7 +5,7 @@ from api.models.trace import *
 from api.lib.util import *
 from api.hx.hx_base import *
 from django.utils.timezone import now, timedelta
-
+import random
 class HX_Article(HX_Base):
 	def __init__(self):
 		pass
@@ -15,7 +15,7 @@ class HX_Article(HX_Base):
 		_dict = {
 			"article_id":query_get.id,
 			"role_value":query_get.role.value,
-			"cover":query_get.cover_image.url if query_get.tag is not None else "",
+			"cover":query_get.cover_image.url if query_get.cover_image is not None else "",
 			#"cover":query_get.cover,
 			"title":query_get.title, # 七牛云自动缩略图
 			"issue_time":query_get.issue_time.strftime("%Y-%m-%d"),
@@ -97,6 +97,8 @@ class HX_Article(HX_Base):
 	# 4 根据ID——获取文章
 	def GetArticleByID(self,article_id):
 		_query = Article.objects.get(id=article_id)
+		_query.click_rate = _query.click_rate + random.randint(1, 6)
+		_query.save()
 		return self._PackContent(_query)
 
 	# 5 根据时间——搜索文章
