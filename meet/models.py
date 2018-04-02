@@ -15,7 +15,7 @@ class ImageLibrary(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'名称',null=True,blank=True)
     url = models.CharField(max_length=1000, verbose_name=u'云地址',null=True,blank=True)
     style = models.IntegerField(u'类别',default=IMAGE_COVER,choices=IMAGE_STYLE.items(),)
-    local_path = models.ImageField(u'图标',upload_to='img/')
+    local_path = models.ImageField(u'图标',upload_to='img/',default='')
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
         verbose_name_plural = verbose_name = u'6.2 会议图库'
