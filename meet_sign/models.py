@@ -48,7 +48,7 @@ class Cost(models.Model):
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     # 点击链接的文章
     class Meta:
-        verbose_name_plural = verbose_name = u'6.6 费用'
+        verbose_name_plural = verbose_name = u'6.6 费用 '
         ordering = ['-create_time']
     def __unicode__(self):
         return '%s' % (self.name_admin)

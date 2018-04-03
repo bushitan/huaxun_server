@@ -27,6 +27,10 @@ from meet_sign.models import *
 ##5
 class CostAdmin(admin.ModelAdmin):
     list_display = ('id','name_admin','name',)
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "meet":
+            kwargs["queryset"] = Meet.objects.filter(father = None)
+        return super(CostAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(Cost,CostAdmin)
 
 ##6
