@@ -11,9 +11,9 @@ IS_PAYMENT = {
     IS_PAYMENT_TRUE:u"已支付",
 }
 IS_ALIVE = {
-    YES:u"激活",
     NO:u"失效",
-    3:u"无意义",
+    YES:u"激活",
+    # 3:u"无意义",
 }
 # 会与者
 class Attendee(models.Model):
@@ -56,7 +56,7 @@ class Cost(models.Model):
 class Sign(models.Model):
     attendee = models.ForeignKey(Attendee, verbose_name=u'用户',related_name='order_user',null=True,blank=True)
     cost = models.ForeignKey(Cost, verbose_name=u'会议支付项目',null=True,blank=True)
-    is_alive = models.BooleanField( verbose_name=u'是否有效',default=YES,choices=IS_ALIVE.items())
+    is_alive = models.BooleanField( verbose_name=u'是否有效',default=NO,choices=IS_ALIVE.items())
     alive_time = models.DateTimeField(u'有效时间', default = timezone.now)
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     # 点击链接的文章

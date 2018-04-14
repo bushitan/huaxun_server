@@ -8,11 +8,11 @@ import urllib2
 import random
 from django.db import transaction #事务
 
-APP_ID = "wx51930c31391cc5cc"
-APP_SECRET = "0004ddafadf09d541dadee17a533b60f"
+APP_ID = "wx3efaa3a88f42df6b"
+APP_SECRET = "2b4f979499f140c061f123a110accfce"
 MACH_ID = "1488713872"
 MACH_KEY = "283fc3d9d4b8ba3b58601145466d4417"
-PAY_CALLBACK_URL = "https://xcx.308308.com/huaxun_2/api/pay/callback/wx/"
+PAY_CALLBACK_URL = "https://xcx.308308.com/huaxun_2/meet/sign/pay/callback/"
 
 class ActionPay():
 	def __init__(self):
@@ -53,7 +53,7 @@ class ActionPay():
 			else:
 				self.query_order.Update(_q_order, is_pay = YES)
 				_sign_is = _q_order[0].sign_id
-				
+
 				_q_sign = self.query_sign.FilterQuery( id =_sign_is )
 				self.query_sign.Update(_q_sign,is_alive = YES)
 
@@ -137,5 +137,6 @@ if __name__ == "__main__":
 	import os,django
 	django.setup()
 	b = ActionPay()
-	print b.WXPaySign('112',2)
+	# print b.WXPaySign('112',2)
+	print b.CheckIsPay("aScV8V3uN8gEvN2cRnlIqA==","1")
 	# b.SetInfo('112')

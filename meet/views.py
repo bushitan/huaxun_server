@@ -130,6 +130,7 @@ class NewsGetListByMeetID( ListView):
 		try:
 			_meet_id = request.GET.get('meet_id',"")
 			_dict = {
+				'news_swiper_list': self.action_cover.GetSwiperNews( _meet_id),
                 'article_list':self.action_cover.GetNews(_meet_id)
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)

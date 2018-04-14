@@ -46,7 +46,8 @@ admin.site.register(Attendee,AttendeeAdmin)
 
 ##6.2
 class SignAdmin(admin.ModelAdmin):
-    # list_display = ('id',)
+    list_display = ('id','attendee','cost','is_alive',)
+    # list_editable = ('is_alive',)
     pass
 admin.site.register(Sign,SignAdmin)
 
