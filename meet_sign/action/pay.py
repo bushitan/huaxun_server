@@ -49,7 +49,7 @@ class ActionPay():
 		with transaction.atomic():
 			_q_order = self.query_order.FilterQuery( wx_out_trade_no = _out_trade_no )
 			if len(_q_order) == 0:
-				return xml_request%("FAIL",u"订单不存在")
+				return _xml_resualt%("FAIL",u"订单不存在")
 			else:
 				self.query_order.Update(_q_order, is_pay = YES)
 				_sign_is = _q_order[0].sign_id
@@ -57,7 +57,7 @@ class ActionPay():
 				_q_sign = self.query_sign.FilterQuery( id =_sign_is )
 				self.query_sign.Update(_q_sign,is_alive = YES)
 				# return True
-				return xml_request%("SUCCESS",u"支付成功" + str(_out_trade_no))
+				return _xml_resualt%("SUCCESS",u"支付成功")
 		#返回结果
 
 	# 创建微信支付的签名
