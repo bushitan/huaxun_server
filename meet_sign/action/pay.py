@@ -56,8 +56,8 @@ class ActionPay():
 
 				_q_sign = self.query_sign.FilterQuery( id =_sign_is )
 				self.query_sign.Update(_q_sign,is_alive = YES)
-
-				return xml_request%("SUCCESS",u"支付成功")
+				# return True
+				return xml_request%("SUCCESS",u"支付成功" + str(_out_trade_no))
 		#返回结果
 
 	# 创建微信支付的签名

@@ -134,14 +134,14 @@ class PayOrder( ListView):
 #3 微信支付回调
 class PayCallback( ListView):
 	def post(self, request, *args, **kwargs):
-		try:
+		# try:
 			_xml_request =  request.body
 			_action_pay = ActionPay()
 			_xml = _action_pay.WXPaySuccess(_xml_request)
 			return HttpResponse( _xml,content_type="application/xml")
-		except Exception,e :
-			print e
-			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+		# except Exception,e :
+		# 	print e
+		# 	return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
 
 
 
