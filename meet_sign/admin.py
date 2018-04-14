@@ -59,7 +59,7 @@ admin.site.register(Discount,DiscountAdmin)
 
 ##8
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id','sign','is_pay',)
+    list_display = ('id','sign','wx_out_trade_no','sign','origin_price','pay_price','is_pay','is_alive',)
 admin.site.register(Order,OrderAdmin)
 
 ##9

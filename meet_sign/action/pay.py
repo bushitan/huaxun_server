@@ -91,12 +91,12 @@ class ActionPay():
 		if self.query_order.IsExists(
 			sign_id = d_sign["sign_id"],
 			is_pay = NO,
-			is_alive = NO,
+			is_alive = YES,
 		) is True:
 			return self.query_order.Get(
 				sign_id = d_sign["sign_id"],
 				is_pay = NO,
-				is_alive = NO,
+				is_alive = YES,
 			)
 		else:
 			_trade = str(
@@ -107,7 +107,7 @@ class ActionPay():
 			return self.query_order.Add(
 				sign_id = d_sign["sign_id"],
 				is_pay = NO,
-				is_alive = NO,
+				is_alive = YES,
 				wx_out_trade_no = _trade,
 				origin_price = d_sign["cost_unit_price"],
 				pay_price = d_sign["cost_unit_price"],
@@ -138,5 +138,15 @@ if __name__ == "__main__":
 	django.setup()
 	b = ActionPay()
 	# print b.WXPaySign('112',2)
-	print b.CheckIsPay("aScV8V3uN8gEvN2cRnlIqA==","1")
+	# print b.CheckIsPay("aScV8V3uN8gEvN2cRnlIqA==","1")
+	_xml = '''
+		<xml>
+		 	<out_trade_no>201804141617491526</out_trade_no>
+		  	<total_fee>0.01</total_fee>
+		</xml>
+	'''
+	print b.WXPaySuccess(
+		_xml
+
+	)
 	# b.SetInfo('112')
