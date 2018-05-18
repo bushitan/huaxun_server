@@ -52,7 +52,7 @@ class UserAdmin(admin.ModelAdmin):
             'fields': ['logo_roster','roster_image','name','phone','company','introduction','address','latitude','longitude',]
         }),
     )
-    list_display = ('id','logo_tag','name','wx_id','nick_name','phone','company',)
+    list_display = ('id','logo_tag','logo_roster','name','wx_id','nick_name','phone','company',)
     list_display_links = ('id', 'logo_tag',) #点击进入列
     list_editable = ('name','phone',)
     list_per_page = ADMIN_PER_PAGE    
@@ -71,14 +71,14 @@ class UserAdmin(admin.ModelAdmin):
         else:
             html = u"用户未登录"
         return html
-    logo_tag.short_description = '头像'
+    logo_tag.short_description = '微信头像'
     logo_tag.allow_tags = True  # 允許執行 image_tag 中回傳的 html 語法，若為 False(預設)則會被視為純文字
     #商圈的头像
     def logo_roster(self, obj):
         if obj.roster_image is not None:
             html = u'<img src="%s" style="width:72px;height:48px" />' %(obj.roster_image.url)
         else:
-            html = u"商圈为添加头像"
+            html = u"未添加商圈头像"
         return html
     logo_roster.short_description = u'商圈头像'
     logo_roster.allow_tags = True  # 允許執行 image_tag 中回傳的 html 語法，若為 False(預設)則會被視為純文字
