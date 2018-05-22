@@ -62,7 +62,7 @@ class User(models.Model):
     longitude = models.FloatField(verbose_name=u'维度',default=0)
 
     class Meta:
-        verbose_name_plural = verbose_name = u'2.1 用户_基本信息'
+        verbose_name_plural = verbose_name = u'1.5 用户_基本信息'
         app_label = 'api'
         # app_label = string_with_title(u'api', u"23421接口")
 
@@ -75,7 +75,7 @@ class Company(models.Model):
     #area = models.ForeignKey(Area, verbose_name=u'区域',related_name='father_tag',null=True,blank=True)
     
     class Meta:
-        verbose_name_plural = verbose_name = u'2.2 用户_企业信息'
+        verbose_name_plural = verbose_name = u'1.6 用户_企业信息'
         app_label = 'api'
 
     def __unicode__(self):

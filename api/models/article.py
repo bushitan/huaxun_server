@@ -36,7 +36,7 @@ class Role(models.Model):
     price = models.FloatField(u'会员价格',default=0,null=True,blank=True)
     image_url = models.CharField(max_length=500, verbose_name=u'会员图片',null=True,blank=True)
     class Meta:
-        verbose_name_plural = verbose_name = u'1.3 会员角色'
+        verbose_name_plural = verbose_name = u'1.2 会员角色'
         app_label = 'api'
         ordering = ['-value']
         permissions = (
@@ -85,7 +85,7 @@ class ImageMap(models.Model):
     tag = models.ForeignKey('Tag',verbose_name=u'标签',null=True,blank=True)
     create_time = models.DateTimeField(u'创建时间', auto_now_add=True,null=True,blank=True)
     class Meta:
-        verbose_name_plural = verbose_name = u'1.5 图库'
+        verbose_name_plural = verbose_name = u'1.4   图库'
         app_label = 'api'
         
     def __unicode__(self):
