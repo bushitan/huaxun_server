@@ -18,7 +18,8 @@ from api.lib.util import *
 # DecadeBornListFilter
 class OrderAdmin(admin.ModelAdmin):
     search_fields = ('=user__id',)
-    list_display = ('id','user','is_payment','wx_out_trade_no','original_fee','payment_fee','agreement_type','tag','role','article','start_time','end_time','renew_order','is_alive',)
+    list_display = ('id','user','is_payment','agreement_type','tag','role','start_time','end_time','renew_order','wx_out_trade_no','original_fee','payment_fee',)
+    # list_display = ('id','user','is_payment','wx_out_trade_no','original_fee','payment_fee','agreement_type','tag','role','article','start_time','end_time','renew_order','is_alive',)
     fieldsets = (
         (u"用户", {'fields': ['user',]}),
         (u"状态", {'fields': ['is_payment',]}),
