@@ -29,6 +29,12 @@ IS_ALIVE = {
     YES:u"激活",
     NO:u"失效",
 }
+
+import django.utils.timezone as timezone
+import datetime
+def three_day_hence(): #优惠券默认3天有效期
+    return timezone.now() + timezone.timedelta(days=3)
+#优惠券
 class Order(models.Model):
     renew_order = models.ForeignKey('Order', verbose_name=u'续费的单号',null=True,blank=True)
     user = models.ForeignKey(User, verbose_name=u'用户名称',null=True,blank=True)
@@ -48,7 +54,7 @@ class Order(models.Model):
     discount = models.ForeignKey('Discount', verbose_name=u'优惠券',null=True,blank=True)
     original_fee = models.FloatField( verbose_name=u'原价',null=True,blank=True)
     payment_fee = models.FloatField( verbose_name=u'支付价',null=True,blank=True)
-    create_time = models.DateTimeField(u'订单创建时间', null=True)
+    create_time = models.DateTimeField(u'订单创建时间', auto_now_add=True,)
 
      #会员
     tag = models.ForeignKey(Tag, verbose_name=u'网站标签',null=True,blank=True)
@@ -61,7 +67,7 @@ class Order(models.Model):
     end_time = models.DateTimeField(u'合同结束时间', null=True,blank=True)
 
     class Meta:
-        verbose_name_plural = verbose_name = u'3.1 订单'
+        verbose_name_plural = verbose_name = u'2.1 订单'
         ordering = ['-create_time']
         # app_label = 'api'
     def __unicode__(self):
@@ -79,11 +85,6 @@ DISCOUNT_IS_ACTIVE = {
     DISCOUNT_IS_ACTIVE_TRUE : u'有效',
 }
 
-import django.utils.timezone as timezone
-import datetime
-def three_day_hence(): #优惠券默认3天有效期
-    return timezone.now() + timezone.timedelta(days=3)
-#优惠券
 class Discount(models.Model):
     user = models.ForeignKey(User, verbose_name=u'用户名称')
     template = models.ForeignKey('DiscountTemplate', verbose_name=u'优惠券类型')
@@ -97,7 +98,7 @@ class Discount(models.Model):
 
     create_time = models.DateTimeField(u'优惠券创建时间', auto_now_add=True,null=True,blank=True)
     class Meta:
-        verbose_name_plural = verbose_name = u'3.2 优惠券'
+        verbose_name_plural = verbose_name = u'2.2 优惠券'
         ordering = ['-create_time']
         # app_label = 'api'
     def __unicode__(self):
@@ -126,7 +127,7 @@ class DiscountTemplate(models.Model):
     role =  models.ForeignKey(Role, verbose_name=u'允许使用角色',null=True,blank=True)
     create_time = models.DateTimeField(u'合同创建时间', auto_now_add=True,null=True,blank=True)
     class Meta:
-        verbose_name_plural = verbose_name = u'3.3 优惠券模板'
+        verbose_name_plural = verbose_name = u'2.3 优惠券模板'
         ordering = ['-create_time']
         # app_label = 'api'
     def __unicode__(self):

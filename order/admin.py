@@ -21,10 +21,11 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id','user','is_payment','wx_out_trade_no','original_fee','payment_fee','agreement_type','tag','role','article','start_time','end_time','renew_order','is_alive',)
     fieldsets = (
         (u"用户", {'fields': ['user',]}),
-        (u"状态", {'fields': ['is_payment','is_alive',]}),
+        (u"状态", {'fields': ['is_payment',]}),
+        # (u"状态", {'fields': ['is_payment','is_alive',]}),
         # (u"续费的订单", {'fields': ['renew_order']}),
         (u"合同", {'fields': ['agreement_type',('tag','role'),('start_time','end_time')]}),
-        (u"订单创建时间", {'fields': ['create_time']}),
+        # (u"订单创建时间", {'fields': ['create_time']}),
     )
     raw_id_fields = ("discount","user",)
     list_filter = ('is_payment','agreement_type','role','tag',) #右边过滤器
