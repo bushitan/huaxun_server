@@ -108,7 +108,7 @@ class Swiper(models.Model):
     footer = models.CharField(max_length=100, verbose_name=u'页脚',null=True,blank=True)
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
-        verbose_name_plural = verbose_name = u'6.1 轮播图'
+        verbose_name_plural = verbose_name = u'6.2 轮播图'
         ordering = ['-create_time']
 
     def __unicode__(self):
@@ -129,7 +129,7 @@ class Agenda(models.Model):
     end_time = models.DateTimeField(u'开始时间', default = timezone.now)
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
-        verbose_name_plural = verbose_name = u'6.1 目录 -- 日程'
+        verbose_name_plural = verbose_name = u'6.1.1 目录 -- 日程'
         ordering = ['-create_time']
 
     def __unicode__(self):
@@ -146,7 +146,7 @@ class Guest(models.Model):
 
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
-        verbose_name_plural = verbose_name = u'6.1 目录 -- 嘉宾'
+        verbose_name_plural = verbose_name = u'6.1.2 目录 -- 嘉宾'
         ordering = ['-create_time']
 
     def __unicode__(self):
@@ -166,7 +166,7 @@ class News(models.Model):
     footer = models.CharField(max_length=100, verbose_name=u'页脚',null=True,blank=True)
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
-        verbose_name_plural = verbose_name = u'6.1 目录 -- 新闻'
+        verbose_name_plural = verbose_name = u'6.1.3 目录 -- 新闻'
         ordering = ['-create_time']
 
     def __unicode__(self):
@@ -185,7 +185,7 @@ class Spot(models.Model):
     footer = models.CharField(max_length=100, verbose_name=u'页脚',null=True,blank=True)
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
-        verbose_name_plural = verbose_name = u'6.1 目录 -- 景点'
+        verbose_name_plural = verbose_name = u'6.1.4 目录 -- 景点'
         ordering = ['-create_time']
 
     def __unicode__(self):

@@ -34,6 +34,16 @@ class ActionCover():
 	def GetNews(self,meet_id):
 		return self.query_news.Filter( meet_id =  meet_id)
 
+
+	def GetMap(self):
+		return {
+			"latitude": 23.1066805,
+			"longitude": 113.3245904,
+        	"phoneNumber":"020-89338222",
+        	"address":"阅江西路22号首层1",
+		}
+		# return self.query_spot.Filter( )[0]
+
 	def GetSpot(self,spot_meet_list):
 		_list = []
 		for m in spot_meet_list:

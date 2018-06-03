@@ -16,6 +16,7 @@ class QueryNews(QueryBase):
             "summary":query_get.summary,
             "des":query_get.des,
             "footer":query_get.footer,
+            "create_time":query_get.create_time.strftime("%Y-%m-%d"),
 		}
 
 if __name__ == "__main__":

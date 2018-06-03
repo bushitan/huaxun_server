@@ -146,11 +146,14 @@ class SpotGetListByMeetID( ListView):
 	def get(self, request, *args, **kwargs):
 		try:
 			_meet_id = request.GET.get('meet_id',"")
-			_tag_list = self.action_meet.GeSpotMeet(_meet_id)
-			_cover_matrix = self.action_cover.GetSpot(_tag_list)
+			# _tag_list = self.action_meet.GeSpotMeet(_meet_id)
+			# _cover_matrix = self.action_cover.GetSpot(_tag_list)
+			_map = self.action_cover.GetMap()
 			_dict = {
-				"tag_list":_tag_list,
-                'cover_matrix':_cover_matrix
+                # "tag_list":_tag_list,
+                # 'cover_matrix':_cover_matrix
+				"map_dict":_map
+
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)
 		except Exception,e :
