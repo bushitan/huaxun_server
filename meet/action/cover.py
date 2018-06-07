@@ -36,11 +36,15 @@ class ActionCover():
 
 
 	def GetMap(self):
+		# 26.5589000000,106.7039300000
 		return {
-			"latitude": 23.1066805,
-			"longitude": 113.3245904,
-        	"phoneNumber":"020-89338222",
-        	"address":"阅江西路22号首层1",
+			# "latitude": 23.1066805,
+			# "longitude": 113.3245904,
+			"latitude": 26.5589000000,
+			"longitude": 106.7039300000,
+        	"phoneNumber":"0851-86878888",
+        	"name":"贵阳林城万宜酒店",
+        	"address":"贵阳市南明区遵义路326号(临近火车站)",
 		}
 		# return self.query_spot.Filter( )[0]
 

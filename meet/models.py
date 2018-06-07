@@ -142,7 +142,8 @@ class Guest(models.Model):
     article =  models.ForeignKey(ArticleLibrary,verbose_name=u'点击文章',null=True,blank=True) #所属会议
     logo_image = models.ForeignKey(ImageLibrary, verbose_name=u'嘉宾头像',null=True,blank=True)
     company = models.CharField(max_length=40, verbose_name=u'公司',default="",null=True,blank=True)
-    introduction = models.CharField(max_length=2000, verbose_name=u'个人简介',default="",null=True,blank=True)
+    # introduction = models.CharField(max_length=2000, verbose_name=u'个人简介',default="",null=True,blank=True)
+    introduction = models.TextField(verbose_name=u'个人简介',default="",null=True,blank=True)
 
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
