@@ -36,7 +36,7 @@ class ArticleLibraryAdmin(admin.ModelAdmin):
     suit_form_tabs = (('content', '内容'), ('cover', u'封面')) #tab分栏
     fieldsets = (
         (u"展示", {
-            'fields': ['is_show','style',]
+            'fields': ['is_show','style','click_rate',]
         }),
         (u"标题", {
             'fields': ['title','subtitle','summary','source',]
