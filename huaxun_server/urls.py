@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^' + SETTINGS.HOST_URL+'/meet/', include('meet_sign.urls',)),
     url(r'^' + SETTINGS.HOST_URL+'/', include('roster.urls',)),
     url(r'^' + SETTINGS.HOST_URL+'/', include('match.urls',)),
+    url(r'^' + SETTINGS.HOST_URL+'/api308/', include('api308.urls',)),
 ]
 # else:
 #     urlpatterns = [
