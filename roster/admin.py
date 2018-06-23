@@ -39,7 +39,7 @@ class RosterAdmin(admin.ModelAdmin):
     list_display = ('user','user_logo','user_roster_image','tag','serial','buy_tag','sell_tag','area',)
     fields = ['user','tag','serial','buy','sell','area',]
     list_display_links = ( 'user','user_logo',) #点击进入列
-##    list_editable = ('serial','tag',) #在list页面编辑
+    list_editable = ('serial',) #在list页面编辑
     list_per_page = ADMIN_PER_PAGE
     raw_id_fields = ("user",)
     filter_horizontal = ( 'sell','buy', )
