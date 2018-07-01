@@ -14,7 +14,11 @@ class ActionAPI308():
 		res_data = urllib2.urlopen(req)
 		# print res_data
 		res = res_data.read()
-		return res
+
+		res_json = json.loads(res)
+		# print json.loads(res) , type(json.loads(res))
+		# print type(res),11
+		return res_json['data']
 
 	def _get(self,url):
 		req = urllib2.Request(url)
@@ -22,11 +26,13 @@ class ActionAPI308():
 		_json =  json.loads(response.read())
 		return  _json
 
+	# 只用用文件的全路径，避免错误
 	def _token_file(self):
-		ABSPATH=os.path.abspath(sys.argv[0])
-		ABSPATH=os.path.dirname(ABSPATH)
-		ABSPATH=os.path.dirname(ABSPATH)
-		token_file = os.path.dirname(ABSPATH) + '\\'  + "api_308_token.txt"
+		# ABSPATH=os.path.abspath(sys.argv[0])
+		# ABSPATH=os.path.dirname(ABSPATH)
+		# ABSPATH=os.path.dirname(ABSPATH)
+		# token_file = os.path.dirname(ABSPATH) + '\\'  + "api_308_token.txt"
+		token_file = r'C:\lab\git\huaxun_2\huaxun_server\api_308_token.txt'
 		return token_file
 
 	#获取本地token
@@ -101,7 +107,8 @@ class ActionAPI308():
 		_data = {
 		  "industry_id":industry_id
 		}
-		return self._post(_url,_data)
+		data = self._post(_url,_data)
+		return data["categories"]
 
 	# 10 获取指定行业对应栏目下的文章列表
 	def cms_get_articles_by_category(self,
@@ -117,7 +124,13 @@ class ActionAPI308():
 			"sort": sort,
 			"order": order
 		}
-		return self._post(_url,_data)
+
+		data = self._post(_url,_data)
+		return {
+			"article_list":data["content"],
+			"rows":data["number"],
+			"page_no":data["numberOfElements"],
+		}
 
 	# 11 获取指定的文章
 	def cms_get_article (self,uid,article_id):
@@ -193,9 +206,9 @@ if __name__ == "__main__":
 	# print a.user_get_info_by_openid( "oNUgxv608YVIclrLMz_0egqocXcI")
 	# print a.user_bind( "oNUgxv608YVIclrLMz_0egqocXcI","zhangsan","12345678")
 	# print a.user_register( "oNUgxv608YVIclrLMz_0egqocXcI","13800000000","1234",1)
-	print a.user_buy_package( "10092",1,1,"2018-05-23 12:09:12","2019-05-23 12:09:12")
+	# print a.user_buy_package( "10092",1,1,"2018-05-23 12:09:12","2019-05-23 12:09:12")
 	# print a.cms_get_all_industry()
-	# print a.cms_get_categories_by_industry(2)
+	print a.cms_get_categories_by_industry(1)
 	# print a.cms_get_articles_by_category(1,3,20,1,"release_date","desc" )
 	# print a.cms_get_article(10921,220634)
 	# print a.ca_has_privilege(10921,1,"BUSSINESS_TYPE_ARTICLE",123)
