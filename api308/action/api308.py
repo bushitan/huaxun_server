@@ -14,7 +14,7 @@ class ActionAPI308():
 		res_data = urllib2.urlopen(req)
 		# print res_data
 		res = res_data.read()
-
+		# print res
 		res_json = json.loads(res)
 		# print json.loads(res) , type(json.loads(res))
 		# print type(res),11
@@ -198,6 +198,35 @@ class ActionAPI308():
 		print _data
 		return self._post(_url,_data)
 
+	def getToken(self):
+
+		APP_ID = "wx51930c31391cc5cc"
+		APP_SECRET = "0004ddafadf09d541dadee17a533b60f"
+		url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s' %(APP_ID ,APP_SECRET)
+		print self._get(url)
+
+	# 松香 1
+	# 酒精 9
+	# 糠醛 8
+	# 活性炭 4
+	def getQR(self):
+		token = '11_x-YRx5dT8cAlV63SxUV02mMo2jGagJ9gqu8QmVk3FWAJK7SsiWSWnd0Zbs0-5pOx6beHFQn4cWP4BNS-qpN-tDEHfyKzmMMOa-043r6S_QmV2rG49skYLbUYQWvZo05cjfa4MmQUGE0y20ohDQFeACANAP'
+		url = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=%s' %(token)
+		data = {
+			"path":"/pages/index/index?father_tag_id=4"
+		}
+		data_json = json.dumps(data)
+		headerdata = {"Content-type": "application/json"}
+		req = urllib2.Request( url, data_json ,headerdata)
+		# print req
+		res_data = urllib2.urlopen(req)
+		# print res_data
+		res = res_data.read()
+		from PIL import Image
+		from io import BytesIO
+		image = Image.open(BytesIO(res))
+		image.save('D:/9.jpg')
+		# print self._post(qr_url , data)
 
 
 if __name__ == "__main__":
@@ -208,7 +237,10 @@ if __name__ == "__main__":
 	# print a.user_register( "oNUgxv608YVIclrLMz_0egqocXcI","13800000000","1234",1)
 	# print a.user_buy_package( "10092",1,1,"2018-05-23 12:09:12","2019-05-23 12:09:12")
 	# print a.cms_get_all_industry()
-	print a.cms_get_categories_by_industry(1)
+
+	# print a.cms_get_categories_by_industry(1)
+	# print a.getToken()
+	print a.getQR()
 	# print a.cms_get_articles_by_category(1,3,20,1,"release_date","desc" )
 	# print a.cms_get_article(10921,220634)
 	# print a.ca_has_privilege(10921,1,"BUSSINESS_TYPE_ARTICLE",123)

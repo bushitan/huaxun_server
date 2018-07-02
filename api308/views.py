@@ -7,6 +7,7 @@ from action.api308 import *
 from action.user import *
 action_api = ActionAPI308()
 action_user = ActionUser()
+
 ## 增加线程，90分钟刷新一次
 ## 小程序通过后台查询，
 ## 如果token过期，返回小程序404,让小程序重新发起查询
