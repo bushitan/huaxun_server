@@ -7,7 +7,11 @@ from api308.views import *
 
 urlpatterns = [
 
-   url(r'^token/create/$', TokenCreate.as_view()),
+   # url(r'^token/create/$', TokenCreate.as_view()),
+
+   url(r'^token/login/$', TokenLogin.as_view()),
+   url(r'^token/get/$', TokenGet.as_view()),
+
    url(r'^cms/get/industry/$', CMSGetIndustry.as_view()),
    url(r'^cms/get/category_list/$', CMSGetCategoryList.as_view()),
    url(r'^cms/get/article_list/$', CMSGetArticleList.as_view()),

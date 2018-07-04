@@ -8,15 +8,58 @@ from action.user import *
 action_api = ActionAPI308()
 action_user = ActionUser()
 
+# 计时器
+def time_token():
+    import threading
+    def fun_timer():
+        print('Hello Timer!')
+        action_api.create()
+        global timer
+        timer = threading.Timer(1024, fun_timer)
+        timer.start()
+    timer = threading.Timer(0, fun_timer)
+    timer.start()
+time_token()
 ## 增加线程，90分钟刷新一次
 ## 小程序通过后台查询，
 ## 如果token过期，返回小程序404,让小程序重新发起查询
 
 #1 进入快讯，初始化
-class TokenCreate( ListView):
+# class TokenCreate( ListView):
+# 	def get(self, request, *args, **kwargs):
+# 		try:
+# 			a = action_api.create()
+# 			_dict = {
+# 				"token":a
+# 			}
+# 			return MESSAGE_RESPONSE_SUCCESS(_dict)
+# 		except Exception,e :
+# 			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+
+	#1 用户登录
+class TokenLogin( ListView):
 	def get(self, request, *args, **kwargs):
 		try:
-			a = action_api.create()
+			_js_code = request.GET.get('js_code',"")
+			_session = request.GET.get('session',"")
+			print _js_code
+			# openid,session = action_api.token_login(_js_code,_session)
+			openid,session = "ozTYA0Qvq6nBc9Fs167X29kW25G0","wybOqIPZWgyTI1TJClK0jQ=="
+			token = action_api.token_get()
+			_dict = {
+				"openid":openid,
+				"session":session,
+				"token":token,
+			}
+			return MESSAGE_RESPONSE_SUCCESS(_dict)
+		except Exception,e :
+			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+
+#1 获取token
+class TokenGet( ListView):
+	def get(self, request, *args, **kwargs):
+		try:
+			a = action_api.token_get()
 			_dict = {
 				"token":a
 			}
