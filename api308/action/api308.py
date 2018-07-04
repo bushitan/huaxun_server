@@ -2,6 +2,12 @@
 import json,urllib2,urllib
 import os,sys
 
+from api.models.user import *
+import huaxun_server.settings as SETTINGS
+
+wx_app_id = SETTINGS.APP_ID
+wx_app_secret = SETTINGS.APP_SECRET
+
 appid = 'VxfXp4cu'
 appsecret = 'dc5c7986daef50c1e02ab09b442ee34f'
 
@@ -50,6 +56,30 @@ class ActionAPI308():
 		with open(self._token_file(),'w') as f:
 			json.dump(_json,f)
 		return  self._get_token()
+
+
+	# 用户登录，返回session，openid
+	def token_login(self,js_code, session):
+		if User.objects.filter( session = session ).exists() is True:  #session存在，返回用户
+			_user = User.objects.get( session = session)
+		else:#session不存在，获取open_id判断
+			_wx_url = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code "  %(wx_app_id,wx_app_secret,js_code )
+			_json = self._get(_wx_url)
+			print _json
+			_open_id = _json["openid"]
+			if User.objects.filter( wx_open_id = _open_id ).exists() is True: #open_id 存在，
+				_user = User.objects.get( wx_open_id = _open_id)
+			else: #open_id 不存在，增加用户
+				_user = User(
+					wx_open_id = _json["openid"],
+					session =  _json["session_key"],
+				)
+				_user.save()
+		return _user.wx_open_id,_user.session
+	def token_get(self):
+		return  self._get_token()
+
+
 
 	## 4 通过openid获取用户信息
 	def user_get_info_by_openid(self,open_id):
