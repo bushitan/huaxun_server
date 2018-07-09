@@ -43,8 +43,8 @@ class TokenLogin( ListView):
 			_js_code = request.GET.get('js_code',"")
 			_session = request.GET.get('session',"")
 			print _js_code
-			# openid,session = action_api.token_login(_js_code,_session)
-			openid,session = "ozTYA0Qvq6nBc9Fs167X29kW25G0","wybOqIPZWgyTI1TJClK0jQ=="
+			openid,session = action_api.token_login(_js_code,_session)
+			# openid,session = "ozTYA0Qvq6nBc9Fs167X29kW25G0","wybOqIPZWgyTI1TJClK0jQ=="
 			token = action_api.token_get()
 			_dict = {
 				"openid":openid,
