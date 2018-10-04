@@ -161,6 +161,43 @@ class SpotGetListByMeetID( ListView):
 
 
 
+#8 获取会议目录
+class CatalogGetList( ListView):
+	def __init__(self):
+		self.action_meet = ActionMeet()
+		super(CatalogGetList,self).__init__()
+	def get(self, request, *args, **kwargs):
+		try:
+			# _meet_id = request.GET.get('meet_id',"")
+			_catalog_list = self.action_meet.GetFatherMeet()
+			_dict = {
+				"catalog_list":_catalog_list
+			}
+			return MESSAGE_RESPONSE_SUCCESS(_dict)
+		except Exception,e :
+			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+
+
+#9 获取主会议写信
+class MainGetByID( ListView):
+	def __init__(self):
+		self.action_meet = ActionMeet()
+		super(MainGetByID,self).__init__()
+	def get(self, request, *args, **kwargs):
+		try:
+			_meet_id = request.GET.get('meet_id',"")
+			_meet_dict = self.action_meet.GetMeetByID(_meet_id)
+			_dict = {
+				"meet_dict":_meet_dict
+			}
+			return MESSAGE_RESPONSE_SUCCESS(_dict)
+		except Exception,e :
+			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+
+
+
+
+
 
 
 

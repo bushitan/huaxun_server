@@ -75,12 +75,17 @@ class ArticleLibrary(models.Model):
 
 # 1 主会议
 class Meet(models.Model):
+    cover_image = models.ForeignKey(ImageLibrary, verbose_name=u'封面图片',null=True,blank=True)
     style = models.IntegerField(u'类别',default=MEET_AGENDA,choices=MEET_STYLE.items(),)
     name =  models.CharField(max_length=100, verbose_name=u'会议名称',null=True,blank=True)
     father =  models.ForeignKey('self',verbose_name=u'父会议',null=True,blank=True)
     des = models.TextField( verbose_name=u'描述',null=True,blank=True)
     status = models.IntegerField(u'会务状态',default=MEET_PREPARE,choices=MEET_STATUS.items(),)
     serial =  models.IntegerField(verbose_name=u'排序',default=0)
+
+
+    hotel = models.CharField(max_length=200, verbose_name=u'酒店名称',default="",null=True,blank=True)
+    phone = models.CharField(max_length=32, verbose_name=u'电话',default="",null=True,blank=True)
     address = models.CharField(max_length=200, verbose_name=u'地址',default="",null=True,blank=True)
     latitude = models.FloatField(verbose_name=u'精度',default=0)
     longitude = models.FloatField(verbose_name=u'维度',default=0)

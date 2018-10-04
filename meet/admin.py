@@ -59,15 +59,50 @@ class ArticleLibraryAdmin(admin.ModelAdmin):
 admin.site.register(ArticleLibrary,ArticleLibraryAdmin)
 
 
+
+# 文章 按行业大类过滤
+#自定义  list_filter
+from django.utils.translation import gettext_lazy as _
+class SonMeetFilter(admin.SimpleListFilter):
+    title = _('选择会议')
+    parameter_name = 'father_tag'
+    def lookups(self, request, model_admin):
+        # 查行业大类的标签名
+        _father_tag = Meet.objects.filter(father = None)
+        _tup_list = ()
+        for f in _father_tag:
+            _key = f.id
+            _value = str( f.name.encode('UTF-8') )
+            _tup = ( (str(_key),_(_value)),)
+            _tup_list = _tup_list + _tup
+        return _tup_list
+
+    def queryset(self, request, queryset):
+        if self.value() != None:
+            return queryset.filter(father =  self.value() )
+        else :
+            return queryset
+
 class MeetAdmin(admin.ModelAdmin):
-    # fieldsets = (
-    #     (u"主会议", {
-    #         'classes': ('suit-tab', 'suit-tab-meet',),
-    #         'fields': ['father','name','des','status','serial','address','latitude','longitude',]
-    #     }),
-    # )
+    fieldsets = (
+        (u"会议列表",{"fields": ["name","style","father","cover_pre","cover_image","status","des","serial","create_time"]}),
+        (u"地图酒店信息",{"fields":["hotel","phone","address","latitude","longitude",]}),
+    )
+
     # inlines = [SubInline] #插入花名册的信息
-    list_display = ("id","name","des","father","style"  )
+    list_filter = ("style",SonMeetFilter,)
+    list_display = ("id","name","cover_pre","father","style","serial","status"  )
+    # fields = ["name","style","father","cover_pre","cover_image","status","des","serial","address","latitude","longitude","create_time" ]
+    def cover_pre(self, obj):
+        if obj.cover_image is not None:
+            html = u'<img src="%s" style="width:72px;height:48px" />' %(obj.cover_image.url)
+        else:
+            html = u"未添加封面"
+        return html
+    cover_pre.short_description = u'封面图片预览'
+    cover_pre.allow_tags = True  # 允許執行 image_tag 中回傳的 html 語法，若為 False(預設)則會被視為純文字
+    readonly_fields = ['cover_pre',]
+    raw_id_fields = ("cover_image",)
     # suit_form_tabs = (('meet', '主会议'), ('sub', u'子会议')) #tab分栏
 admin.site.register(Meet,MeetAdmin)
 

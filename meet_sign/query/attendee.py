@@ -14,8 +14,11 @@ class QueryAttendee(QueryBase):
 			"name":query_get.name,
 			"nick_name":query_get.nick_name,
 			"male": query_get.male,
-			"company":query_get.company,
 			"phone":query_get.phone,
+			"company":query_get.company,
+			"taxpayer_number":query_get.taxpayer_number,
+			"company_address":query_get.company_address,
+			"bank_account":query_get.bank_account,
 			"position":query_get.position,
 			"remark":query_get.remark,
 		}

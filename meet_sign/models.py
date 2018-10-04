@@ -26,8 +26,15 @@ class Attendee(models.Model):
     nick_name =  models.CharField(max_length=100, verbose_name=u'微信昵称',default="",null=True,blank=True)
     logo =  models.CharField(max_length=500, verbose_name=u'头像',default="",null=True,blank=True)
     male =  models.BooleanField( verbose_name=u'性别',default=YES,choices=IS_MALE.items())
-    company =  models.CharField(max_length=100, verbose_name=u'企业名称',default="",null=True,blank=True)
+
+
     phone = models.CharField(max_length=40, verbose_name=u'电话',default="",null=True,blank=True)
+
+    company =  models.CharField(max_length=100, verbose_name=u'企业名称',default="",null=True,blank=True)
+    taxpayer_number =  models.CharField(max_length=100, verbose_name=u'纳税人识别号',default="",null=True,blank=True)
+    company_address =  models.CharField(max_length=100, verbose_name=u'企业地址',default="",null=True,blank=True)
+    bank_account =  models.CharField(max_length=100, verbose_name=u'银行账户',default="",null=True,blank=True)
+
     position = models.CharField(max_length=100, verbose_name=u'职务',null=True,blank=True)
     remark = models.CharField(max_length=100, verbose_name=u'备注',null=True,blank=True)
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)

@@ -25,14 +25,20 @@ class AttendeeSet( ListView):
 		try:
 			_s_session = request.GET.get('meet_session',"")
 			_s_name = request.GET.get('name',"")
-			_s_company = request.GET.get('company',"")
 			_s_phone = request.GET.get('phone',"")
+			_s_company = request.GET.get('company',"")
+			_taxpayer_number = request.GET.get('taxpayer_number',"")
+			_company_address = request.GET.get('company_address',"")
+			_bank_account = request.GET.get('bank_account',"")
 			_att = ActionAttendee()
 			_d_attendee = _att.SetInfo(
 				_s_session,
 				name = _s_name,
-				company = _s_company,
 				phone = _s_phone,
+				company = _s_company,
+				taxpayer_number = _taxpayer_number,
+				company_address = _company_address,
+				bank_account = _bank_account,
 			)
 			_dict = {
                 'dict_attendee':_d_attendee

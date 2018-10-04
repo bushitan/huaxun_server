@@ -9,10 +9,14 @@ class QueryMeet(QueryBase):
 	def _PackDict(self,query_get):
 		return {
             "meet_id":query_get.id,
+            "cover_url": query_get.cover_image.url if query_get.cover_image is not None else "",
             "meet_name": query_get.name,
             "des": query_get.des,
             "status": query_get.status,
             "serial": query_get.serial,
+
+            "hotel": query_get.hotel,
+            "phone": query_get.phone,
             "address": query_get.address,
             "latitude": query_get.latitude,
             "longitude": query_get.longitude,

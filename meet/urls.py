@@ -13,5 +13,7 @@ urlpatterns = [
    url(r'^guest/get_list/meet_id/$', GuestGetListByMeetID.as_view()),  #嘉宾列表
    url(r'^news/get_list/meet_id/$', NewsGetListByMeetID.as_view()),  #新闻列表
    url(r'^spot/get_list/meet_id/$', SpotGetListByMeetID.as_view()),  #景点列表
+   url(r'^catalog/get_list/$', CatalogGetList.as_view()),  #景点列表
+   url(r'^main/get/meet_id/$', MainGetByID.as_view()),  #景点列表
 
 ]

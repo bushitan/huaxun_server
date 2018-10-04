@@ -9,13 +9,16 @@ class ActionMeet():
 	def __init__(self):
 		self.query_meet = QueryMeet()
 	def GetCurrent(self):
-		return self.query_meet.Get(status = MEET_START)
+		return self.query_meet.Filter(status = MEET_START)[0]
 	def GetAgendaMeet(self,meet_id):
 		return self.query_meet.Filter(father_id = meet_id,style = MEET_AGENDA)
 	def GeSpotMeet(self,meet_id):
 		return self.query_meet.Filter(father_id = meet_id,style = MEET_SPOT)
 
-
+	def GetFatherMeet(self):
+		return self.query_meet.Filter(style = MEET_MAIN)
+	def GetMeetByID(self,meet_id):
+		return self.query_meet.Get(id = meet_id)
 
 
 		# return self.query_agenda.Filter(*args,**kwargs)
