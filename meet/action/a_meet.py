@@ -9,7 +9,7 @@ class ActionMeet():
 	def __init__(self):
 		self.query_meet = QueryMeet()
 	def GetCurrent(self):
-		return self.query_meet.Filter()[0]
+		return self.query_meet.Filter(id=1)[0]
 	def GetAgendaMeet(self,meet_id):
 		return self.query_meet.Filter(father_id = meet_id,style = MEET_AGENDA)
 	def GeSpotMeet(self,meet_id):
