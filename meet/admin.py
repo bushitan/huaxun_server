@@ -87,6 +87,7 @@ class MeetAdmin(admin.ModelAdmin):
     fieldsets = (
         (u"会议列表",{"fields": ["name","style","father","cover_pre","cover_image","status","des","serial","create_time"]}),
         (u"地图酒店信息",{"fields":["hotel","phone","address","latitude","longitude",]}),
+        (u"分享信息",{"fields":["share_title","share_image_url","share_path",]}),
     )
 
     # inlines = [SubInline] #插入花名册的信息

@@ -20,5 +20,8 @@ class ActionMeet():
 	def GetMeetByID(self,meet_id):
 		return self.query_meet.Get(id = meet_id)
 
+	def CheckAliveByID(self,meet_id):
+		return self.query_meet.IsExists(id = meet_id)
+
 
 		# return self.query_agenda.Filter(*args,**kwargs)

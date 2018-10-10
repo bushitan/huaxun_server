@@ -15,5 +15,6 @@ urlpatterns = [
    url(r'^spot/get_list/meet_id/$', SpotGetListByMeetID.as_view()),  #景点列表
    url(r'^catalog/get_list/$', CatalogGetList.as_view()),  #景点列表
    url(r'^main/get/meet_id/$', MainGetByID.as_view()),  #景点列表
+   url(r'^main/check_alive/meet_id/$', MainCheckAliveByID.as_view()),  #景点列表
 
 ]

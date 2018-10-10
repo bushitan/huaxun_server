@@ -57,3 +57,9 @@ class ActionCover():
 
 	def GetArticleContent(self,article_id):
 		return self.query_article.Get(id = article_id)
+
+if __name__ == "__main__":
+	import os,django
+	django.setup()
+	c = ActionCover()
+	print c.GetSwiperAgenda(1)

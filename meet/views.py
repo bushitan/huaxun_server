@@ -97,9 +97,13 @@ class AgendaGetListByMeetID( ListView):
 			_meet_id = request.GET.get('meet_id',"")
 			_agenda_meet_list = self.action_meet.GetAgendaMeet(_meet_id)
 			_agenda_matrix = self.action_cover.GetAgenda(_agenda_meet_list)
+			_swiper_list =  self.action_cover.GetSwiperAgenda(_meet_id)
+			_meet_dict = self.action_meet.GetMeetByID(_meet_id)
 			_dict = {
 				"tag_list":_agenda_meet_list,
-                'cover_matrix':_agenda_matrix
+                'cover_matrix':_agenda_matrix,
+				'swiper_list':_swiper_list,
+				'meet_dict':_meet_dict,
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)
 		except Exception,e :
@@ -189,6 +193,24 @@ class MainGetByID( ListView):
 			_meet_dict = self.action_meet.GetMeetByID(_meet_id)
 			_dict = {
 				"meet_dict":_meet_dict
+			}
+			return MESSAGE_RESPONSE_SUCCESS(_dict)
+		except Exception,e :
+			return MESSAGE_RESPONSE_NET_ERROR( self.__class__.__name__ ,e )
+
+
+
+#9 验证会议是否存在
+class MainCheckAliveByID( ListView):
+	def __init__(self):
+		self.action_meet = ActionMeet()
+		super(MainCheckAliveByID,self).__init__()
+	def get(self, request, *args, **kwargs):
+		try:
+			_meet_id = request.GET.get('meet_id',"")
+			_is_alive = self.action_meet.CheckAliveByID(_meet_id)
+			_dict = {
+				"is_alive":_is_alive
 			}
 			return MESSAGE_RESPONSE_SUCCESS(_dict)
 		except Exception,e :

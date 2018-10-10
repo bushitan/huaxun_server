@@ -20,6 +20,9 @@ class QueryMeet(QueryBase):
             "address": query_get.address,
             "latitude": query_get.latitude,
             "longitude": query_get.longitude,
+
+            "share_title": query_get.share_title,
+            "share_image_url": query_get.share_image_url,
 		}
 
 if __name__ == "__main__":

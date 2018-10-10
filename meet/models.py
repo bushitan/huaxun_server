@@ -87,8 +87,13 @@ class Meet(models.Model):
     hotel = models.CharField(max_length=200, verbose_name=u'酒店名称',default="",null=True,blank=True)
     phone = models.CharField(max_length=32, verbose_name=u'电话',default="",null=True,blank=True)
     address = models.CharField(max_length=200, verbose_name=u'地址',default="",null=True,blank=True)
-    latitude = models.FloatField(verbose_name=u'精度',default=0)
-    longitude = models.FloatField(verbose_name=u'维度',default=0)
+    latitude = models.FloatField(verbose_name=u'纬度',default=0)
+    longitude = models.FloatField(verbose_name=u'经度',default=0)
+
+    share_title = models.CharField(max_length=32, verbose_name=u'分享标题',default="",null=True,blank=True)
+    share_image_url = models.CharField(max_length=200, verbose_name=u'分享图片',default="",null=True,blank=True)
+    share_path = models.CharField(max_length=32, verbose_name=u'分享路径',default="",null=True,blank=True)
+
     # issue_time = models.DateTimeField(u'发布时间', default = timezone.now)
     create_time = models.DateTimeField(u'创建时间', default = timezone.now)
     class Meta:
