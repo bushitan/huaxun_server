@@ -12,11 +12,14 @@ action_user = ActionUser()
 def time_token():
     import threading
     def fun_timer():
-        print('Hello Timer!')
-        action_api.create()
-        global timer
-        timer = threading.Timer(1024, fun_timer)
-        timer.start()
+        try:
+            print('Hello Timer!')
+            action_api.create()
+            global timer
+            timer = threading.Timer(1024, fun_timer)
+            timer.start()
+        except Exception,e :
+            fun_timer()
     timer = threading.Timer(0, fun_timer)
     timer.start()
 time_token()
