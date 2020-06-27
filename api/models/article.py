@@ -201,7 +201,7 @@ class Article(models.Model):
 
     class Meta:
         verbose_name_plural = verbose_name = u'1.1 文章'
-        ordering = ['-issue_time', '-is_top']
+        ordering = ['-id','-issue_time', '-is_top']
         app_label = 'api'
         # ordering = ['rank', '-is_top', '-pub_time', '-create_time']
 
