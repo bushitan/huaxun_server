@@ -18,6 +18,8 @@ class HX_Article(HX_Base):
 			"cover":query_get.cover_image.url if query_get.cover_image is not None else "",
 			#"cover":query_get.cover,
 			"title":query_get.title, # 七牛云自动缩略图
+			"summary":query_get.summary, # 摘要
+			"source":query_get.source, # 来源
 			"issue_time":query_get.issue_time.strftime("%Y-%m-%d"),
 			"click_rate":query_get.click_rate,
 			"is_banner":query_get.is_banner, #是广告
